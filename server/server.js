@@ -11,7 +11,6 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('public'));
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -22,11 +21,6 @@ app.use(
 
 app.use(require('./routes'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:', {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-});
-
-// mongoose.set('debug', true);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:');
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

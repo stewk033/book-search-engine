@@ -1,4 +1,3 @@
-// see SignupForm.js for comments
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -27,7 +26,6 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -44,7 +42,6 @@ const LoginForm = () => {
     } catch (err) {
       console.error(err);
     }
-    // clear form values
     setUserFormData({
       email: "",
       password: "",

@@ -21,6 +21,12 @@ app.use(
 
 app.use(require('./routes'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/book-search-engine');
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost:27017/book-search-engine",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

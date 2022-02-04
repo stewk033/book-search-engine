@@ -11,12 +11,18 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
+  "engines": {
+    "node": "^16.13.2"
+  },
   "devDependencies": {
     "concurrently": "^5.3.0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^3.6.2"
+    "apollo-server-express": "^3.6.2",
+    "graphql": "^15.8.0",
+    "mongoose": "^6.2.0",
+    "nodemon": "^2.0.15"
   }
 }

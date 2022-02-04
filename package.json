@@ -14,11 +14,13 @@
   "engines": {
     "node": "14.18.0"
   },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^3.6.2",
-    "concurrently": "^5.3.0",
     "mongoose": "^6.2.0",
     "nodemon": "^2.0.15"
   }

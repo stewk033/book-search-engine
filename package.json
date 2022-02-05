@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^3.6.2"
+    "apollo-server-express": "^3.6.2",
+    "express-graphql": "^0.12.0"
   }
 }

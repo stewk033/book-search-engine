@@ -1,32 +1,35 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const { ApolloServer } = require("apollo-server-express");
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./schemas/index.js");
-const cors = require("cors");
+const { typeDefs, resolvers } = require("./schemas");
+const { authMiddleware } = require("./utils/auth");
+const db = require("./config/connection");
 
-app.use(cors());
-app.use(express.json());
+const startServer = async () => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+  });
+
+  await server.start();
+  server.applyMiddleware({ app });
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+};
+
+startServer();
+
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    graphiql: true,
-  })
-);
+app.use(express.json());
 
-app.use(require('./routes'));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/book-search-engine",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
-
-app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));
+db.once("open", () => {
+  app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));
+});

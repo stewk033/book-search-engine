@@ -60,13 +60,23 @@ const SearchBooks = () => {
     }
   };
 
+  const [saveBooks] = useMutation(SAVE_BOOK);
+
   const handleSaveBook = async (bookId) => {
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
-    await saveBook({
-      variables: { ...bookToSave },
-    });
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
     try {
+      const { data } = await saveBooks({
+        variables: { bookData: { ...bookToSave } },
+      });
+      console.log(data);
+
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);

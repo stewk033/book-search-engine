@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from "@apollo/clien";
 
 export const GET_ME = gql`
   {
